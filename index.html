@@ -45,10 +45,10 @@
     }
     
     .app-container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 300px 1fr 300px;
       gap: 20px;
     }
     
@@ -67,6 +67,120 @@
       border-radius: 20px;
       padding: 30px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--primary-gradient);
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-bottom: 20px;
+      margin-bottom: 15px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -22px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #667eea;
+      z-index: 1;
+    }
+    
+    .timeline-item.completed::before {
+      background: #56ab2f;
+      border-color: #56ab2f;
+    }
+    
+    .timeline-item.overdue::before {
+      background: #ff4757;
+      border-color: #ff4757;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+    }
+    
+    .timeline-content {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 3px solid transparent;
+    }
+    
+    .timeline-content.priority-high {
+      border-left-color: #ff4757;
+    }
+    
+    .timeline-content.priority-medium {
+      border-left-color: #ffa502;
+    }
+    
+    .timeline-content.priority-low {
+      border-left-color: #7bed9f;
+    }
+    
+    .timeline-title {
+      font-weight: 500;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    
+    .timeline-time {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 3px;
+    }
+    
+    .timeline-category {
+      display: inline-block;
+      background: var(--primary-gradient);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 10px;
+    }
+    
+    .view-toggle {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    
+    .view-btn {
+      padding: 8px 16px;
+      background: rgba(255,255,255,0.6);
+      border: 2px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    
+    .view-btn.active {
+      background: var(--primary-gradient);
+      color: white;
+      border-color: transparent;
     }
     
     h1 {
@@ -509,20 +623,26 @@
     }
     
     /* Mobile Responsive */
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
       .app-container {
         grid-template-columns: 1fr;
         gap: 15px;
       }
       
       .sidebar {
-        order: 2;
+        order: 3;
       }
       
       .main-content {
         order: 1;
       }
       
+      .timeline-panel {
+        order: 2;
+      }
+    }
+    
+    @media (max-width: 768px) {
       .input-row {
         flex-direction: column;
       }
@@ -544,6 +664,18 @@
       .todo-meta {
         justify-content: flex-start;
       }
+      
+      .timeline {
+        padding-left: 20px;
+      }
+      
+      .timeline::before {
+        left: 10px;
+      }
+      
+      .timeline-item::before {
+        left: -17px;
+      }
     }
     
     /* Animations */
@@ -563,6 +695,10 @@
     }
     
     /* Dark theme specific styles */
+    [data-theme="dark"] {
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    }
+    
     [data-theme="dark"] .input-row input,
     [data-theme="dark"] .input-row select,
     [data-theme="dark"] .search-box,
@@ -580,6 +716,42 @@
     [data-theme="dark"] .todo-notes {
       background: rgba(0,0,0,0.2);
       color: #ccc;
+    }
+    
+    [data-theme="dark"] .timeline-content {
+      background: rgba(255,255,255,0.05);
+      color: white;
+    }
+    
+    [data-theme="dark"] .timeline-time {
+      color: #bbb;
+    }
+    
+    [data-theme="dark"] .timeline::before {
+      background: linear-gradient(to bottom, #667eea, #764ba2);
+    }
+    
+    [data-theme="dark"] .stat-card {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+    
+    [data-theme="dark"] .filter-btn,
+    [data-theme="dark"] .view-btn {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border-color: rgba(255,255,255,0.2);
+    }
+    
+    [data-theme="dark"] .action-btn {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border-color: rgba(255,255,255,0.2);
+    }
+    
+    [data-theme="dark"] .progress-text,
+    [data-theme="dark"] .stat-label {
+      color: #bbb;
     }
   </style>
 </head>
@@ -625,6 +797,15 @@
         <button class="import-btn" onclick="document.getElementById('importFile').click()">📥 Import</button>
         <input type="file" id="importFile" accept=".json" style="display: none" onchange="importTasks(event)">
       </div>
+    </div>
+    
+    <div class="timeline-panel">
+      <h2>📅 Timeline</h2>
+      <div class="view-toggle">
+        <button class="view-btn active" onclick="setTimelineView('upcoming')">Upcoming</button>
+        <button class="view-btn" onclick="setTimelineView('completed')">Completed</button>
+      </div>
+      <div class="timeline" id="timeline"></div>
     </div>
     
     <div class="main-content">
@@ -678,12 +859,20 @@
     let todoIdCounter = Math.max(...todos.map(t => t.id || 0), 0) + 1;
     let draggedElement = null;
 
+    let timelineView = 'upcoming';
+
     // Initialize app
     document.addEventListener('DOMContentLoaded', function() {
       loadCategories();
       renderTodos();
+      renderTimeline();
       updateStats();
       setupEventListeners();
+      
+      // Load saved theme
+      const savedTheme = localStorage.getItem('todoTheme') || 'light';
+      document.body.setAttribute('data-theme', savedTheme);
+      updateThemeIcon();
     });
 
     function setupEventListeners() {
@@ -742,6 +931,7 @@
       
       saveData();
       renderTodos();
+      renderTimeline();
       updateStats();
     }
 
@@ -752,6 +942,7 @@
         todo.completedAt = todo.completed ? new Date() : null;
         saveData();
         renderTodos();
+        renderTimeline();
         updateStats();
       }
     }
@@ -761,6 +952,7 @@
         todos = todos.filter(t => t.id !== id);
         saveData();
         renderTodos();
+        renderTimeline();
         updateStats();
       }
     }
@@ -853,6 +1045,7 @@
         saveData();
         loadCategories();
         renderTodos();
+        renderTimeline();
       }
     }
 
@@ -861,6 +1054,7 @@
         todos = todos.filter(todo => !todo.completed);
         saveData();
         renderTodos();
+        renderTimeline();
         updateStats();
       }
     }
@@ -907,6 +1101,7 @@
               saveData();
               loadCategories();
               renderTodos();
+              renderTimeline();
               updateStats();
               alert('Tasks imported successfully!');
             }
@@ -931,6 +1126,67 @@
       return today.toDateString() === dueDate.toDateString();
     }
 
+    function toggleTheme() {
+      const currentTheme = document.body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('todoTheme', newTheme);
+      updateThemeIcon();
+    }
+    
+    function updateThemeIcon() {
+      const themeBtn = document.querySelector('.theme-toggle');
+      const currentTheme = document.body.getAttribute('data-theme');
+      themeBtn.textContent = currentTheme === 'light' ? '🌙' : '☀️';
+    }
+    
+    function setTimelineView(view) {
+      timelineView = view;
+      document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderTimeline();
+    }
+    
+    function renderTimeline() {
+      const timeline = document.getElementById('timeline');
+      let timelineTodos = [];
+      
+      if (timelineView === 'upcoming') {
+        timelineTodos = todos
+          .filter(todo => !todo.completed && todo.dueDate)
+          .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+      } else {
+        timelineTodos = todos
+          .filter(todo => todo.completed)
+          .sort((a, b) => new Date(b.completedAt || b.createdAt) - new Date(a.completedAt || a.createdAt));
+      }
+      
+      if (timelineTodos.length === 0) {
+        timeline.innerHTML = `<div class="empty-state">No ${timelineView} tasks</div>`;
+        return;
+      }
+      
+      timeline.innerHTML = '';
+      timelineTodos.slice(0, 10).forEach(todo => {
+        const item = document.createElement('div');
+        item.className = `timeline-item ${todo.completed ? 'completed' : ''} ${isOverdue(todo) ? 'overdue' : ''}`;
+        
+        const displayDate = timelineView === 'upcoming' ? 
+          (todo.dueDate ? formatDate(new Date(todo.dueDate)) : 'No due date') :
+          (todo.completedAt ? formatDate(new Date(todo.completedAt)) : formatDate(new Date(todo.createdAt)));
+        
+        item.innerHTML = `
+          <div class="timeline-content priority-${todo.priority}">
+            <div class="timeline-time">${displayDate}</div>
+            <div class="timeline-title">${todo.text}</div>
+            ${todo.category ? `<span class="timeline-category">${todo.category}</span>` : ''}
+          </div>
+        `;
+        
+        timeline.appendChild(item);
+      });
+    }
+    
     function renderTodos() {
       const list = document.getElementById('todoList');
       let filteredTodos = todos.filter(todo => {
